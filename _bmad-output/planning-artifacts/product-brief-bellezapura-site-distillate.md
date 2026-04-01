@@ -8,7 +8,10 @@ purpose: "Token-efficient context for downstream PRD creation"
 
 * **Requirements hints:**
   * Exibição completa da **Grade de Horários**, cobrindo todas as aulas diversas: Natação (bebês, kids, adulto), Hidroginástica, Muay Thai, Pilates solo, Baby Class, Sapateado, Jazz, Hip hop, Funcional, Baby Tap.
-  * Tabelas detalhadas capturadas: Exibição dos planos de **Musculação** (Estudante R$80, Mensal R$90, Trimestral R$210, Semestral R$350, Anual R$582), **Aulas Aquáticas e Pilates** (R$200, 8 aulas/mês), **Lutas e Danças** (R$80 - R$189), e serviços agregados como **Nutricionista** (R$150) e **Kinesio Tape** (a partir de R$39).
+  * **Gestão Dinâmica de Modalidades (CMS/Config Simplificada)**: O site DEVE ser preparado para fácil inclusão, edição ou exclusão de modalidades (algumas danças estão em fase de teste de 3 meses). Isso exigirá uma arquitetura que permita que o conteúdo da grade e ofertas seja editável pela equipe da academia sem precisar de um desenvolvedor avançado.
+  * **Estratégia Mista de Preços**: Apenas os planos de **Musculação** (Em Dupla R$80, Mensal R$90, Trimestral R$210, Semestral R$350, Anual R$582) terão seus valores exibidos abertamente. Para as **todas as outras modalidades** (Natação, Hidro, Lutas, Danças, Pilates), os preços não serão listados no site, sendo substituídos por Call-to-Actions (ex: "Consultar Valores" ou "Agendar Aula Teste") que direcionem o visitante diretamente para o WhatsApp, configurando uma isca forte para o time de vendas.
+  * Elementos obrigatórios de interface de usuário (UI): Uma seção integrada de **Google Maps** para garantir visibilidade nas buscas estritamente locais do bairro e guiar o tráfego físico.
+  * Seção obrigatória de **FAQ (Perguntas Frequentes)** visando o autoatendimento básico e quebrando grandes objeções antes do cliente clicar no WhatsApp.
   * Botões de CTA ancorados para enviar o visitante ao WhatsApp de vendas de forma nativa (Número da clínica: 558599699439). De preferência com mensagens parametrizadas pela modalidade selecionada.
   * Necessidade de áreas de destaque para promover ganhos do "Combo Família" e programas de indicação (Traga um parente/amigo).
   * Seção obrigatória de parcerias corporativas, dando amplo destaque aos parceiros recém validados: **TotalPass** e **Wellhub**.
