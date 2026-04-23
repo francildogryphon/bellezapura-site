@@ -1,0 +1,46 @@
+---
+// ShowcaseGallery.astro - Galeria estática nativa sem JS
+const galleryImages = [
+  { alt: "Salão Principal de Musculação", src: "https://images.unsplash.com/photo-1540497077202-7c8a3999166f?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80", colSpan: "md:col-span-2" },
+  { alt: "Piscina Coberta de Natação", src: "https://images.unsplash.com/photo-1576610616656-d3aa5d1f4534?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80", colSpan: "col-span-1" },
+  { alt: "Área de Pesos Livres", src: "https://images.unsplash.com/photo-1581009146145-b5ef050c2e1e?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80", colSpan: "col-span-1" },
+  { alt: "Bicicletas Ergométricas", src: "https://images.unsplash.com/photo-1534438327276-14e5300c3a48?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80", colSpan: "md:col-span-2" }
+];
+---
+
+<section class="w-full bg-gray-900 py-24 px-4" aria-labelledby="showcase-heading">
+  <div class="max-w-6xl mx-auto flex flex-col gap-12">
+    
+    <div class="text-center md:text-left flex flex-col md:flex-row md:items-end justify-between gap-6">
+      <div class="max-w-xl">
+        <h2 id="showcase-heading" class="text-3xl md:text-5xl font-heading font-extrabold text-white">
+          Estrutura <span class="text-sun-yellow">Premium</span>
+        </h2>
+        <p class="mt-4 text-gray-400 font-sans text-lg">
+          Mergulhe em nossa infraestrutura desenhada por especialistas para impulsionar seus ganhos. Natação, pesos livres e ergometria de ponta.
+        </p>
+      </div>
+    </div>
+
+    <!-- Grid Layout bento-style sem JS -->
+    <div class="grid grid-cols-1 md:grid-cols-3 gap-6 auto-rows-[250px] md:auto-rows-[300px]">
+      {galleryImages.map((img) => (
+        <div class={`relative block overflow-hidden rounded-2xl group ${img.colSpan} border border-gray-800 bg-gray-800`}>
+          <div class="absolute inset-0 bg-navy-deep/20 group-hover:bg-transparent transition-colors duration-500 z-10 w-full h-full"></div>
+          <img 
+            src={img.src} 
+            alt={img.alt} 
+            loading="lazy" 
+            class="absolute inset-0 w-full h-full object-cover sm:object-center transform group-hover:scale-105 transition-transform duration-700 ease-out" 
+          />
+          <div class="absolute bottom-0 left-0 right-0 p-4 bg-gradient-to-t from-gray-900/90 to-transparent z-20">
+            <span class="text-white font-sans font-semibold tracking-wide drop-shadow-md">
+              {img.alt}
+            </span>
+          </div>
+        </div>
+      ))}
+    </div>
+
+  </div>
+</section>
