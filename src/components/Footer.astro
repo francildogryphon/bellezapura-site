@@ -1,0 +1,35 @@
+---
+// Footer.astro - Rodapé estático com Base de Confiança e LGPD
+---
+
+<footer class="w-full bg-navy-deep border-t border-gray-800 py-12 px-4 shadow-inner mt-auto">
+  <div class="max-w-4xl mx-auto flex flex-col md:flex-row justify-between items-start md:items-center gap-8">
+    
+    <div class="flex flex-col gap-2">
+      <h3 class="text-sun-yellow font-heading text-xl font-bold tracking-wide">Belleza Pura</h3>
+      <p class="text-gray-300 font-sans text-sm">
+        A queridinha da Cidade 2000. Tradição e resultados desde 1994.
+      </p>
+      <div class="mt-4 pt-4 border-t border-gray-800 text-gray-400 font-sans text-xs flex flex-col gap-2">
+        <p><strong>ACADEMIA BELLEZA PURA LTDA</strong></p>
+        <p>CNPJ: 00.278.306/0001-04</p>
+        <p>📍 Av. dos Flamboyants, 148 - Cidade 2000</p>
+        <p>📱 WhatsApp: (85) 99969-9439</p>
+      </div>
+    </div>
+
+    <div class="flex flex-col gap-4 max-w-sm">
+      <h4 class="text-gray-200 font-heading font-semibold text-sm uppercase tracking-wider">Privacidade e Termos</h4>
+      <p class="text-gray-400 font-sans text-xs leading-relaxed">
+        Em conformidade com a LGPD (Lei Geral de Proteção de Dados), informamos que este ambiente utiliza apenas cookies funcionais passivos estritamente necessários para o funcionamento básico e segurança da plataforma. Não capturamos dados sensíveis sem o seu expresso consentimento no canal de atendimento.
+      </p>
+    </div>
+
+  </div>
+  
+  <div class="max-w-4xl mx-auto mt-8 pt-6 border-t border-gray-800 text-center">
+    <p class="text-gray-500 font-sans text-xs">
+      &copy; {new Date().getFullYear()} Academia Belleza Pura. Todos os direitos reservados.
+    </p>
+  </div>
+</footer>

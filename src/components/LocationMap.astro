@@ -1,0 +1,23 @@
+---
+// LocationMap.astro - Componente passivo para visualização no Maps
+---
+
+<section class="w-full bg-navy-deep py-8 px-4" aria-labelledby="location-heading">
+  <div class="max-w-4xl mx-auto flex flex-col gap-6">
+    <div class="text-center">
+      <h2 id="location-heading" class="text-2xl md:text-3xl font-heading font-bold text-sun-yellow">Nossa Localização</h2>
+      <p class="text-gray-200 mt-2 font-sans">Venha conhecer a nossa estrutura na Cidade 2000</p>
+    </div>
+    
+    <div class="w-full h-80 md:h-96 rounded-xl overflow-hidden shadow-lg border border-gray-800 relative bg-gray-900">
+      <iframe
+        src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d15925.321!2d-38.455!3d-3.743!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x0%3A0x0!2zQWNhZGVtaWEgQmVsbGV6YSBQdXJh!5e0!3m2!1spt-BR!2sbr&q=Av.+dos+Flamboyants,+148+-+Cidade+2000,+Fortaleza+-+CE"
+        class="absolute top-0 left-0 w-full h-full border-0"
+        allowfullscreen={false}
+        loading="lazy"
+        title="Localização da Academia Belleza Pura no Google Maps"
+        referrerpolicy="no-referrer-when-downgrade"
+      ></iframe>
+    </div>
+  </div>
+</section>

@@ -43,8 +43,8 @@ story_location: c:/Dev/bellezapura-site/_bmad-output/implementation-artifacts
 
 development_status:
   epic-1: in-progress
-  1-1-inicializacao-do-repositorio-e-design-tokens: review
-  1-2-construcao-da-base-de-confianca-do-rodape-e-localizacao: backlog
+  1-1-inicializacao-do-repositorio-e-design-tokens: done
+  1-2-construcao-da-base-de-confianca-do-rodape-e-localizacao: review
   1-3-secao-hero-e-quebra-gelo-institucional: backlog
   1-4-integracao-de-parceiros-corporativos-e-redes-sociais: backlog
   1-5-faq-e-abordagem-de-objecoes-primitivas: backlog
