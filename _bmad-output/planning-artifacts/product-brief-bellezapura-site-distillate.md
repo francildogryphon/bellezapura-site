@@ -7,11 +7,11 @@ purpose: "Token-efficient context for downstream PRD creation"
 ---
 
 * **Requirements hints:**
-  * Exibição completa da **Grade de Horários**, cobrindo todas as aulas diversas: Natação (bebês, kids, adulto), Hidroginástica, Muay Thai, Pilates solo, Baby Class, Sapateado, Jazz, Hip hop, Funcional, Baby Tap.
+  * Exibição completa da **Grade de Horários**, cobrindo todas as aulas diversas: Natação (bebês a partir de 6 meses acompanhados, kids, adulto), Hidroginástica, Muay Thai, Pilates solo, Ballet (Baby Class), Sapateado, Jazz, Hip hop, Funcional, Baby Tap.
   * **Gestão Dinâmica de Modalidades (CMS/Config Simplificada)**: O site DEVE ser preparado para fácil inclusão, edição ou exclusão de modalidades (algumas danças estão em fase de teste de 3 meses). Isso exigirá uma arquitetura que permita que o conteúdo da grade e ofertas seja editável pela equipe da academia sem precisar de um desenvolvedor avançado.
   * **Estratégia Mista de Preços**: Apenas os planos de **Musculação** (Em Dupla R$80, Mensal R$90, Trimestral R$210, Semestral R$350, Anual R$582) terão seus valores exibidos abertamente. Para as **todas as outras modalidades** (Natação, Hidro, Lutas, Danças, Pilates), os preços não serão listados no site, sendo substituídos por Call-to-Actions (ex: "Consultar Valores" ou "Agendar Aula Teste") que direcionem o visitante diretamente para o WhatsApp, configurando uma isca forte para o time de vendas.
   * Elementos obrigatórios de interface de usuário (UI): Uma seção integrada de **Google Maps** para garantir visibilidade nas buscas estritamente locais do bairro e guiar o tráfego físico.
-  * Seção obrigatória de **FAQ (Perguntas Frequentes)** visando o autoatendimento básico e quebrando grandes objeções antes do cliente clicar no WhatsApp.
+  * Seção obrigatória de **FAQ (Perguntas Frequentes)** visando o autoatendimento básico e quebrando grandes objeções antes do cliente clicar no WhatsApp. O FAQ deve focar no esclarecimento da **Avaliação Física** (oferecida pela própria academia) e horários/idades.
   * Botões de CTA ancorados para enviar o visitante ao WhatsApp de vendas de forma nativa (Número da clínica: 558599699439). De preferência com mensagens parametrizadas pela modalidade selecionada.
   * Necessidade de áreas de destaque para promover ganhos do "Combo Família" e programas de indicação (Traga um parente/amigo).
   * Seção obrigatória de parcerias corporativas, dando amplo destaque aos parceiros recém validados: **TotalPass** e **Wellhub**.
