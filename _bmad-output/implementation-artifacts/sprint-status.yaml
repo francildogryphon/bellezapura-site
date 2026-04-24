@@ -55,9 +55,9 @@ development_status:
   2-3-injecao-de-copywriting-estrategico-por-arquetipo: done
   2-4-renderizacao-organica-de-horarios: done
   epic-2-retrospective: optional
-  epic-3: backlog
-  3-1-componente-base-do-quiz: backlog
-  3-2-engenharia-logica-do-match-de-modalidades: backlog
+  epic-3: done
+  3-1-componente-base-do-quiz: done
+  3-2-engenharia-logica-do-match-de-modalidades: done
   3-3-injecao-de-parametros-contextuais-de-venda: backlog
   epic-3-retrospective: optional
   epic-4: backlog

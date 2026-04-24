@@ -1,0 +1,177 @@
+---
+// QuizEngine.astro - Calculadora de Demanda (SWR/VanillaJS)
+---
+
+<quiz-engine class="w-full bg-gray-900 py-16 px-4 flex flex-col justify-center items-center" aria-labelledby="quiz-heading">
+  <!-- Import Lottie Player as requested by user -->
+  <script type="module" src="https://unpkg.com/@lottiefiles/lottie-player@latest/dist/lottie-player.js" is:inline></script>
+
+  <div class="max-w-2xl w-full flex flex-col gap-8 text-center" id="quiz-container">
+    
+    <div class="flex justify-center" id="lottie-container">
+      <!-- Você pode buscar animações em lottiefiles.com/pt/ e colar a "Lottie Animation URL" (JSON) aqui dentro do Atributo src="" -->
+      <lottie-player 
+        src="https://lottie.host/ebef9cf6-ab23-4560-84a8-d99616d63bc3/B0Q1K1YQ7o.json" 
+        background="transparent"  
+        speed="1"  
+        style="width: 200px; height: 200px;"  
+        loop 
+        autoplay>
+      </lottie-player>
+    </div>
+
+    <div>
+      <h2 id="quiz-heading" class="text-3xl md:text-5xl font-heading font-extrabold text-white leading-tight">
+        Qual o seu <span class="text-sun-yellow">Maior Desafio</span> hoje?
+      </h2>
+      <p class="mt-4 text-gray-400 font-sans text-lg">
+        Encontre a aula perfeita para você em apenas 2 cliques.
+      </p>
+    </div>
+
+    <!-- Interface Dinâmica Controlada pelo Web Component -->
+    <div id="quiz-viewport" class="flex justify-center flex-col gap-4 mt-4 w-full">
+      <!-- Injected Via JS -->
+    </div>
+
+  </div>
+</quiz-engine>
+
+<script>
+  // Web Component Native Logic (Zero-JS Framework) encapsulado para segurança e performance (FR08, FR09)
+  class QuizEngine extends HTMLElement {
+    constructor() {
+      super();
+      this.state = {
+        step: 0,
+        selectedGoal: null,
+      };
+
+      this.questions = [
+        {
+          id: 'goal',
+          title: 'Passo 1 de 2',
+          options: [
+            { label: '🏋️‍♂️ Secar, emagrecer e definir', value: 'emagrecimento' },
+            { label: '🩹 Sair do Sedentarismo / Reabilitação', value: 'saude' },
+            { label: '👶 Gastar energia do filho / Modalidade Infantil', value: 'kids' },
+            { label: '🧘‍♀️ Melhorar Postura / Dores nas Costas', value: 'postura' }
+          ]
+        },
+        // A lógica do Passo 2 muda dinamicamente baseada na resposta da Q1. Fica hardcoded no render na renderLogic()
+      ];
+
+      this.viewport = this.querySelector('#quiz-viewport');
+      this.lottiePlayer = this.querySelector('lottie-player');
+      this.titleEl = this.querySelector('#quiz-heading');
+      this.subtitleEl = this.querySelector('p');
+
+      this.renderCurrentStep();
+    }
+
+    createButton(label, onclick) {
+      const btn = document.createElement('button');
+      // Choice Pills com Hitbox >= 56px como pedido no UX-DR4 e FR08
+      btn.className = "w-full min-h-[64px] bg-gray-800 hover:bg-gray-700 active:bg-gray-600 border border-gray-700 text-white font-sans text-lg lg:text-xl font-bold py-4 px-6 rounded-2xl shadow-lg transition-transform transform active:scale-95 text-left flex items-center justify-between group";
+      btn.innerHTML = `
+        <span>${label}</span>
+        <svg class="w-6 h-6 text-gray-500 group-hover:text-sun-yellow transition-colors" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path></svg>
+      `;
+      btn.addEventListener('click', onclick);
+      return btn;
+    }
+
+    renderCurrentStep() {
+      if (!this.viewport) return;
+      this.viewport.innerHTML = ''; 
+
+      if (this.state.step === 0) {
+        this.questions[0].options.forEach(opt => {
+          this.viewport.appendChild(this.createButton(opt.label, () => {
+            this.state.selectedGoal = opt.value;
+            this.state.step = 1;
+            this.renderCurrentStep();
+          }));
+        });
+      } else if (this.state.step === 1) {
+        // Árvore de Decisão: Lógica de Routing da Calculadora (FR09)
+        let subOptions = [];
+        this.titleEl.innerHTML = `Onde você prefere <span class="text-sun-yellow">treinar?</span>`;
+        this.subtitleEl.innerText = "Estamos filtrando a grade de aulas ideal...";
+        
+        if (this.state.selectedGoal === 'emagrecimento') {
+          subOptions = [
+            { label: 'Água (Piscina / Hidro)', result: 'Hidroginástica ou Natação' },
+            { label: 'Salão (Musculação / Lutas / Funcional)', result: 'Muay Thai ou Funcional' }
+          ];
+        } else if (this.state.selectedGoal === 'saude') {
+          subOptions = [
+            { label: 'Me sinto melhor na Água', result: 'Hidroginástica para Alívio Articular' },
+            { label: 'Prefiro treinar fora (Equipamentos/Solo)', result: 'Pilates Solo ou Funcional' }
+          ];
+        } else if (this.state.selectedGoal === 'kids') {
+          subOptions = [
+            { label: 'Meio Aquático', result: 'Natação Kids (Sobrevivência e Esporte)' },
+            { label: 'Dança / Arte', result: 'Ballet Clássico (Baby Class) ou Sapateado' }
+          ];
+        } else {
+          subOptions = [
+            { label: 'Treino mais focado (Sem impacto)', result: 'Pilates Solo' },
+            { label: 'Treino Aquático', result: 'Hidroginástica Específica' }
+          ];
+        }
+
+        subOptions.forEach(opt => {
+          this.viewport.appendChild(this.createButton(opt.label, () => {
+             this.finishQuiz(opt.result);
+          }));
+        });
+      }
+    }
+
+    finishQuiz(recommendedModality) {
+      if(this.lottiePlayer) {
+        // Change Lottie to a success vector (troque este JSON por outro do lottiefiles se desejar)
+        this.lottiePlayer.setAttribute('src', 'https://lottie.host/81e3a152-edfe-4e36-af74-bdf77189025e/v64T11N6f3.json');
+      }
+
+      this.titleEl.innerHTML = `Achamos o <span class="text-[#25D366]">treino ideal!</span>`;
+      this.subtitleEl.innerHTML = `Baseado nas suas escolhas, criamos a rota mais rápida para o seu objetivo.`;
+
+      this.viewport.innerHTML = `
+        <div class="bg-navy-deep border-2 border-sun-yellow rounded-2xl p-8 shadow-2xl flex flex-col items-center gap-6 animate-pulse-once mt-4">
+          <h3 class="text-3xl font-heading font-extrabold text-white text-center">
+            Sua Modalidade: <br/><span class="text-sun-yellow text-4xl">${recommendedModality}</span>
+          </h3>
+          <p class="text-gray-300 font-sans text-center max-w-sm">
+            Nossos consultores no WhatsApp estão com o preçário e horários desta aula abertos agorinha.
+          </p>
+          <a href="https://wa.me/5585999699439?text=${encodeURIComponent(`Oie! Fiz o Quiz lá no site e vi que minha modalidade ideal pode ser ${recommendedModality}. Podem me passar a grade atualizada dela e falar sobre marcação de aula experimental?`)}"
+             target="_blank" rel="noopener noreferrer"
+             class="w-full sm:w-auto bg-[#25D366] hover:bg-[#128C7E] text-white py-4 px-8 rounded-full font-heading font-bold text-xl flex items-center justify-center gap-3 transition-colors shadow-lg active:scale-95"
+          >
+            <svg class="w-6 h-6" viewBox="0 0 448 512" fill="currentColor"><path d="M380.9 97.1C339 55.1 283.2 32 223.9 32c-122.4 0-222 99.6-222 222 0 39.1 10.2 77.3 29.6 111L0 480l117.7-30.9c32.4 17.7 68.9 27 106.1 27h.1c122.3 0 224.1-99.6 224.1-222 0-59.3-25.2-115-67.1-157zm-157 341.6c-33.2 0-65.7-8.9-94-25.7l-6.7-4-69.8 18.3L72 359.2l-4.4-7c-18.5-29.4-28.2-63.3-28.2-98.2 0-101.7 82.8-184.5 184.6-184.5 49.3 0 95.6 19.2 130.4 54.1 34.8 34.9 56.2 81.2 56.1 130.5 0 101.8-84.9 184.6-186.6 184.6zm101.2-138.2c-5.5-2.8-32.8-16.2-37.9-18-5.1-1.9-8.8-2.8-12.5 2.8-3.7 5.6-14.3 18-17.6 21.8-3.2 3.7-6.5 4.2-12 1.4-32.6-16.3-54-29.1-75.5-66-5.7-9.8 5.7-9.1 16.3-30.3 1.8-3.7.9-6.9-.5-9.7-1.4-2.8-12.5-30.1-17.1-41.2-4.5-10.8-9.1-9.3-12.5-9.5-3.2-.2-6.9-.2-10.6-.2-3.7 0-9.7 1.4-14.8 6.9-5.1 5.6-19.4 19-19.4 46.3 0 27.3 19.9 53.7 22.6 57.4 2.8 3.7 39.1 59.7 94.8 83.8 35.2 15.2 49 16.5 66.6 13.9 10.7-1.6 32.8-13.4 37.4-26.4 4.6-13 4.6-24.1 3.2-26.4-1.3-2.5-5-3.9-10.5-6.6z"/></svg>
+            Agendar Aula Experimental
+          </a>
+          <button id="reset-quiz" class="mt-2 text-gray-500 hover:text-gray-300 font-sans text-sm outline-none bg-transparent">Refazer Teste</button>
+        </div>
+      `;
+
+      this.viewport.querySelector('#reset-quiz').addEventListener('click', () => {
+        this.state.step = 0;
+        this.titleEl.innerHTML = `Qual o seu <span class="text-sun-yellow">Maior Desafio</span> hoje?`;
+        this.subtitleEl.innerText = "Encontre a aula perfeita para você em apenas 2 cliques.";
+        if(this.lottiePlayer) {
+          // Volta o bonequinho pensando original
+          this.lottiePlayer.setAttribute('src', 'https://lottie.host/ebef9cf6-ab23-4560-84a8-d99616d63bc3/B0Q1K1YQ7o.json');
+        }
+        this.renderCurrentStep();
+      });
+    }
+  }
+
+  // Prevenir redelclaração caso o ViewTransition rodar
+  if (!customElements.get('quiz-engine')) {
+    customElements.define('quiz-engine', QuizEngine);
+  }
+</script>
