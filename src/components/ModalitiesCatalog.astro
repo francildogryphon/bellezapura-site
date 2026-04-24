@@ -1,0 +1,95 @@
+---
+// ModalitiesCatalog.astro - Catálogo Sanfonado Zero-JS para modalidades e conversão no WhatsApp
+const categories = [
+  {
+    title: "Aquáticos do Zero ao Avançado",
+    icon: "🏊‍♀️",
+    classes: [
+      { name: "Natação Bebês (A partir de 6 meses)", desc: "Estímulo aquático seguro ao desenvolvimento motor na primeira infância (pais na água)." },
+      { name: "Natação Kids e Teens", desc: "Aprendizado lúdico e formativo cobrindo sobrevivência e todos os nados esportivos." },
+      { name: "Natação Adulto", desc: "Foco livre! Desde quem tem trauma e deseja sobrevivência básica até ex-atletas polindo técnica cardiovascular." },
+      { name: "Hidroginástica", desc: "Treino aeróbico extramamente vibrante e seguro para articulações. Queridinho da melhor idade." }
+    ]
+  },
+  {
+    title: "Lutas e Artes Marciais",
+    icon: "🥊",
+    classes: [
+      { name: "Muay Thai", desc: "Altíssimo gasto calórico e condicionamento. Chutes, socos e defesa pessoal na veia!" }
+    ]
+  },
+  {
+    title: "Danças e Expressão",
+    icon: "🩰",
+    classes: [
+      { name: "Ballet (Baby Class)", desc: "Primeiros movimentos de dança clássica com postura, disciplina e graça infantil." },
+      { name: "Jazz e Hip Hop", desc: "Liberte energia pura com coreografias modernas, ritmos urbanos e condicionamento musical." },
+      { name: "Sapateado (Baby Tap)", desc: "Muita coordenação motora com ritmo acústico direto dos próprios sapatos!" }
+    ]
+  },
+  {
+    title: "Mente e Corpo Saudável",
+    icon: "🧘‍♀️",
+    classes: [
+      { name: "Pilates Solo", desc: "Fortalecimento do Core, alívio de dores nas costas e correção biomecânica usando apenas o corpo." },
+      { name: "Treino Funcional", desc: "Ganhe agilidade diária misturando saltos, giros e exercícios que imitam ações do dia-a-dia." }
+    ]
+  }
+];
+
+const whatsAppNumber = "5585999699439";
+---
+
+<section class="w-full bg-navy-deep py-20 px-4" aria-labelledby="catalog-heading">
+  <div class="max-w-4xl mx-auto flex flex-col gap-10">
+    <div class="text-center md:text-left">
+      <h2 id="catalog-heading" class="text-3xl md:text-5xl font-heading font-extrabold text-white">
+        Grade de <span class="text-sun-yellow">Modalidades</span>
+      </h2>
+      <p class="mt-4 text-gray-300 font-sans text-lg max-w-2xl">
+        Descubra muito além dos pesos. Toque em uma categoria abaixo e agende uma aula experimental gratuita na sua modalidade favorita.
+      </p>
+    </div>
+
+    <!-- Interface nativa em grupo sanfonado via 'details' HTML5 -->
+    <div class="flex flex-col gap-4">
+      {categories.map((category) => (
+        <details class="group border border-gray-800 rounded-xl bg-gray-900 overflow-hidden shadow-md select-none transition-all duration-300 open:border-sun-yellow/30">
+          <summary class="flex items-center justify-between p-6 cursor-pointer outline-none bg-gray-800/30 hover:bg-gray-800/60 transition-colors">
+            <div class="flex items-center gap-4">
+              <span class="text-3xl">{category.icon}</span>
+              <h3 class="font-heading font-bold text-xl text-white tracking-wide">{category.title}</h3>
+            </div>
+            <div class="text-gray-400 group-open:text-sun-yellow group-open:rotate-180 transform transition-all duration-300 ease-in-out">
+              <svg fill="none" stroke="currentColor" viewBox="0 0 24 24" class="w-6 h-6"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path></svg>
+            </div>
+          </summary>
+
+          <div class="flex flex-col gap-0 border-t border-gray-800/50 bg-gray-900/50">
+            {category.classes.map((cls) => (
+              <div class="p-6 md:p-8 flex flex-col md:flex-row md:items-center justify-between gap-6 border-b border-gray-800/30 last:border-0 hover:bg-gray-800/20 transition-colors">
+                <div class="flex flex-col gap-1 max-w-xl">
+                  <h4 class="font-heading font-bold text-lg text-sun-yellow">{cls.name}</h4>
+                  <p class="font-sans text-gray-400 text-sm md:text-base leading-relaxed">
+                    {cls.desc}
+                  </p>
+                </div>
+                <div class="flex-shrink-0">
+                  <a 
+                    href={`https://wa.me/${whatsAppNumber}?text=Oi! Gostaria de saber os valores e agendar uma aula experimental de ${cls.name}`}
+                    target="_blank" 
+                    rel="noopener noreferrer"
+                    class="inline-flex items-center justify-center font-heading font-bold bg-[#25D366] hover:bg-[#128C7E] text-white py-2.5 px-6 rounded-full transition-colors w-full md:w-auto text-sm gap-2 whitespace-nowrap shadow-xl"
+                  >
+                    <svg class="w-4 h-4" viewBox="0 0 24 24" fill="currentColor"><path d="M12.031 0C5.385 0 0 5.387 0 12.033c0 2.656.84 5.228 2.428 7.35L.716 24l4.82-1.684a11.968 11.968 0 006.495 1.884v-.001C18.618 24.2 24 18.815 24 12.035 24 5.388 18.62 0 12.031 0zm.006 20.306a9.954 9.954 0 01-5.066-1.378l-.36-.214-3.765.986.995-3.666-.234-.375A9.972 9.972 0 012.016 12.031c0-5.513 4.49-10.003 10.003-10.003 5.513 0 10.003 4.49 10.003 10.003 0 5.513-4.49 10.003-10.003 10.003h-.011v.27zm5.54-7.513c-.302-.15-1.78-.88-2.056-.98-.276-.1-.475-.15-.678.15s-.777.98-1.002 1.18c-.147.13-.431.18-.733.03-.302-.15-1.272-.47-2.423-1.498-.893-.799-1.497-1.785-1.674-2.086-.175-.302-.018-.466.133-.616.135-.134.301-.352.453-.528.15-.175.2-.302.302-.503.05-.378-.025-.528c-.075-.15-.678-1.63-.98-2.23-.216-.6-.438-.518-.598-.527h-.513c-.2 0-.527.075-.803.378-.276.302-1.054 1.03-1.054 2.513 0 1.482 1.08 2.915 1.23 3.116.15.201 2.13 3.245 5.161 4.55.722.31 1.285.496 1.724.636.726.23 1.383.197 1.902.12.584-.087 1.78-.727 2.032-1.432.251-.704.251-1.307.176-1.432-.075-.125-.276-.2-.578-.35z"/></svg>
+                    Consultar Valores
+                  </a>
+                </div>
+              </div>
+            ))}
+          </div>
+        </details>
+      ))}
+    </div>
+  </div>
+</section>
