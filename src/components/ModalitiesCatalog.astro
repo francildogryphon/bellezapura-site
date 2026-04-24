@@ -1,5 +1,8 @@
 ---
 // ModalitiesCatalog.astro - Catálogo Sanfonado Zero-JS para modalidades e conversão no WhatsApp
+import { fetchSchedules, getShiftsFor } from '../utils/fetchSchedules';
+
+const schedulesDb = await fetchSchedules();
 const categories = [
   {
     title: "Aquáticos do Zero ao Avançado",
@@ -73,6 +76,15 @@ const whatsAppNumber = "5585999699439";
                   <p class="font-sans text-gray-400 text-sm md:text-base leading-relaxed">
                     {cls.desc}
                   </p>
+                  {getShiftsFor(cls.name, schedulesDb).length > 0 && (
+                    <div class="flex flex-wrap gap-2 mt-3 cursor-default">
+                      {getShiftsFor(cls.name, schedulesDb).map(shift => (
+                        <span class="inline-block bg-gray-800 text-gray-300 border border-gray-700 text-xs px-2.5 py-1 rounded-md shadow-sm font-sans tracking-wide">
+                          {shift}
+                        </span>
+                      ))}
+                    </div>
+                  )}
                 </div>
                 <div class="flex-shrink-0">
                   <a 
