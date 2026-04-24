@@ -6,7 +6,7 @@ const schedulesDb = await fetchSchedules();
 const categories = [
   {
     title: "Aquáticos do Zero ao Avançado",
-    icon: "🏊‍♀️",
+    image: "https://images.unsplash.com/photo-1519315901367-f34f9274ceb0?auto=format&fit=crop&q=80&w=800",
     classes: [
       { name: "Natação Bebês (A partir de 6 meses)", desc: "Estímulo aquático seguro ao desenvolvimento motor na primeira infância (pais na água)." },
       { name: "Natação Kids e Teens", desc: "Aprendizado lúdico e formativo cobrindo sobrevivência e todos os nados esportivos." },
@@ -16,14 +16,14 @@ const categories = [
   },
   {
     title: "Lutas e Artes Marciais",
-    icon: "🥊",
+    image: "https://images.unsplash.com/photo-1549719386-74dfcbf7dbed?auto=format&fit=crop&q=80&w=800",
     classes: [
       { name: "Muay Thai", desc: "Altíssimo gasto calórico e condicionamento. Chutes, socos e defesa pessoal na veia!" }
     ]
   },
   {
     title: "Danças e Expressão",
-    icon: "🩰",
+    image: "https://images.unsplash.com/photo-1508700115892-45ecd05ae2ad?auto=format&fit=crop&q=80&w=800",
     classes: [
       { name: "Ballet (Baby Class)", desc: "Primeiros movimentos de dança clássica com postura, disciplina e graça infantil." },
       { name: "Jazz e Hip Hop", desc: "Liberte energia pura com coreografias modernas, ritmos urbanos e condicionamento musical." },
@@ -32,7 +32,7 @@ const categories = [
   },
   {
     title: "Mente e Corpo Saudável",
-    icon: "🧘‍♀️",
+    image: "https://images.unsplash.com/photo-1518611012118-696072aa579a?auto=format&fit=crop&q=80&w=800",
     classes: [
       { name: "Pilates Solo", desc: "Fortalecimento do Core, alívio de dores nas costas e correção biomecânica usando apenas o corpo." },
       { name: "Treino Funcional", desc: "Ganhe agilidade diária misturando saltos, giros e exercícios que imitam ações do dia-a-dia." }
@@ -44,36 +44,40 @@ const whatsAppNumber = "5585999699439";
 ---
 
 <section class="w-full bg-navy-deep py-20 px-4" aria-labelledby="catalog-heading">
-  <div class="max-w-4xl mx-auto flex flex-col gap-10">
-    <div class="text-center md:text-left">
+  <div class="max-w-6xl mx-auto flex flex-col gap-10">
+    <div class="text-center">
       <h2 id="catalog-heading" class="text-3xl md:text-5xl font-heading font-extrabold text-white">
         Grade de <span class="text-sun-yellow">Modalidades</span>
       </h2>
-      <p class="mt-4 text-gray-300 font-sans text-lg max-w-2xl">
+      <p class="mt-4 text-gray-300 font-sans text-lg max-w-2xl mx-auto">
         Descubra muito além dos pesos. Toque em uma categoria abaixo e agende uma aula experimental gratuita na sua modalidade favorita.
       </p>
     </div>
 
-    <!-- Interface nativa em grupo sanfonado via 'details' HTML5 -->
-    <div class="flex flex-col gap-4">
+    <!-- Interface nativa em grupo sanfonado via 'details' HTML5 convertida para Cards Verticais -->
+    <div class="grid grid-cols-1 md:grid-cols-2 gap-6 items-start">
       {categories.map((category) => (
-        <details class="group border border-gray-800 rounded-xl bg-gray-900 overflow-hidden shadow-md select-none transition-all duration-300 open:border-sun-yellow/30">
-          <summary class="flex items-center justify-between p-6 cursor-pointer outline-none bg-gray-800/30 hover:bg-gray-800/60 transition-colors">
-            <div class="flex items-center gap-4">
-              <span class="text-3xl">{category.icon}</span>
-              <h3 class="font-heading font-bold text-xl text-white tracking-wide">{category.title}</h3>
-            </div>
-            <div class="text-gray-400 group-open:text-sun-yellow group-open:rotate-180 transform transition-all duration-300 ease-in-out">
-              <svg fill="none" stroke="currentColor" viewBox="0 0 24 24" class="w-6 h-6"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path></svg>
+        <details class="group bg-gray-900 rounded-3xl overflow-hidden shadow-2xl transition-all duration-300 open:ring-2 open:ring-sun-yellow/50">
+          <summary class="relative h-48 md:h-64 flex flex-col justify-end p-6 cursor-pointer outline-none overflow-hidden select-none">
+            <!-- Imagem de Fundo Premium -->
+            <img src={category.image} alt={category.title} class="absolute inset-0 w-full h-full object-cover opacity-50 group-hover:opacity-70 group-hover:scale-105 transition-all duration-700 ease-in-out" />
+            <!-- Gradiente de Fade -->
+            <div class="absolute inset-0 bg-gradient-to-t from-[#0f172a] via-[#0f172a]/70 to-transparent"></div>
+            
+            <div class="relative z-10 flex items-end justify-between w-full">
+              <h3 class="font-heading font-extrabold text-2xl md:text-3xl text-white tracking-wide shadow-black drop-shadow-md">{category.title}</h3>
+              <div class="bg-sun-yellow text-navy-deep rounded-full p-2 group-open:rotate-180 transform transition-transform duration-300 ease-in-out shadow-lg">
+                <svg fill="none" stroke="currentColor" viewBox="0 0 24 24" class="w-6 h-6 stroke-[3]"><path stroke-linecap="round" stroke-linejoin="round" d="M19 9l-7 7-7-7"></path></svg>
+              </div>
             </div>
           </summary>
 
-          <div class="flex flex-col gap-0 border-t border-gray-800/50 bg-gray-900/50">
+          <div class="flex flex-col gap-0 border-t border-gray-800 bg-[#162032]">
             {category.classes.map((cls) => (
-              <div class="p-6 md:p-8 flex flex-col md:flex-row md:items-center justify-between gap-6 border-b border-gray-800/30 last:border-0 hover:bg-gray-800/20 transition-colors">
+              <div class="p-6 md:p-8 flex flex-col 2xl:flex-row 2xl:items-center justify-between gap-6 border-b border-gray-800/40 last:border-0 hover:bg-white/5 transition-colors">
                 <div class="flex flex-col gap-1 max-w-xl">
-                  <h4 class="font-heading font-bold text-lg text-sun-yellow">{cls.name}</h4>
-                  <p class="font-sans text-gray-400 text-sm md:text-base leading-relaxed">
+                  <h4 class="font-heading font-bold text-xl text-sun-yellow">{cls.name}</h4>
+                  <p class="font-sans text-gray-300 text-sm md:text-base leading-relaxed mt-1">
                     {cls.desc}
                   </p>
                   {getShiftsFor(cls.name, schedulesDb).length > 0 && (
